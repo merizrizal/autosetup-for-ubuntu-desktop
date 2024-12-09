@@ -1,0 +1,6 @@
+[gnome/desktop/screensaver]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///home/{{ ansible_user }}/.local/share/backgrounds/{{ desktop_background_image }}'
+primary-color='#000000000000'
+secondary-color='#000000000000'

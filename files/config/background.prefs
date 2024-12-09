@@ -1,0 +1,7 @@
+[gnome/desktop/background]
+color-shading-type='solid'
+picture-options='centered'
+picture-uri='file:///home/{{ ansible_user }}/.local/share/backgrounds/{{ desktop_background_image }}'
+picture-uri-dark='file:///home/{{ ansible_user }}/.local/share/backgrounds/{{ desktop_background_image }}'
+primary-color='#000000000000'
+secondary-color='#000000000000'

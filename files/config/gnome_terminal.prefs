@@ -1,0 +1,15 @@
+[gnome/terminal/legacy]
+new-tab-position='next'
+shortcuts-enabled=true
+
+[gnome/terminal/legacy/keybindings]
+new-tab='<Primary><Shift>t'
+
+[gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+background-color='rgb(23,20,33)'
+bold-is-bright=true
+default-size-columns=112
+default-size-rows=46
+foreground-color='rgb(208,207,204)'
+use-theme-colors=false
+visible-name='{{ ansible_user | capitalize }}'

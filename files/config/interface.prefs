@@ -1,0 +1,11 @@
+[gnome/desktop/interface]
+clock-show-seconds=true
+clock-show-weekday=true
+color-scheme='prefer-dark'
+document-font-name='Sans 9'
+font-name='Sans 9'
+gtk-theme='Yaru-magenta-dark'
+icon-theme='Yaru-magenta'
+monospace-font-name='Monospace 9'
+show-battery-percentage=true
+toolkit-accessibility=false

@@ -1,0 +1,16 @@
+---
+config_source: "{{ root_dir }}/files/config"
+private_config_source: "{{ root_dir }}/files/private/config"
+
+prefs_tmp_files:
+  background_prefs: /tmp/background.prefs
+  interface_prefs: /tmp/interface.prefs
+  screensaver_prefs: /tmp/screensaver.prefs
+  gnome_shell_prefs: /tmp/gnome_shell.prefs
+  gnome_terminal_prefs: /tmp/gnome_terminal.prefs
+  gtk_prefs: /tmp/gtk.prefs
+
+user_config_dir:
+  backgrounds: "/home/{{ ansible_user }}/.local/share/backgrounds"
+
+desktop_background_image: autosetup-desktop-background.jpg

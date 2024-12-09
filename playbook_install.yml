@@ -1,0 +1,9 @@
+---
+- name: Setup
+  hosts: localhost
+  connection: local
+  vars:
+    root_dir: "{{ lookup('ansible.builtin.env', 'ROOT_DIR') }}"
+  roles:
+    - role: setup
+  become: true

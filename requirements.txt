@@ -1,0 +1,6 @@
+ansible
+ansible-lint
+ansible-pylibssh
+passlib
+xmltodict
+jinja2

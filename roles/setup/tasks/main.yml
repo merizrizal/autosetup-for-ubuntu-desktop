@@ -1,0 +1,82 @@
+---
+- name: Copy preferences config to /tmp
+  ansible.builtin.template:
+    src: "{{ config_source ~ '/' ~ (item.value | basename) }}"
+    dest: "{{ item.value }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "644"
+  loop: "{{ prefs_tmp_files | dict2items }}"
+
+- name: Parse variable
+  ansible.builtin.set_fact:
+    user_config_dir: "{{ user_config_dir }}"
+
+- name: Ensure the user config directory exists
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "755"
+    state: directory
+  loop: "{{ user_config_dir | dict2items }}"
+
+- name: Copy background image
+  ansible.builtin.copy:
+    src: "{{ private_config_source ~ '/' ~ desktop_background_image }}"
+    dest: "{{ user_config_dir.backgrounds }}/"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "644"
+
+- name: Add git-core/ppa
+  ansible.builtin.apt_repository:
+    repo: ppa:git-core/ppa
+    state: present
+
+- name: Do apt upgrade
+  ansible.builtin.apt:
+    upgrade: full
+    update_cache: true
+
+- name: Install a list of packages
+  ansible.builtin.apt:
+    name:
+      - jq
+      - git
+      - gnome-tweaks
+      - gnome-shell-extensions
+      - sshfs
+      - bindfs
+      - psensor
+      - openconnect
+      - stoken
+      - build-essential
+      - xmlstarlet
+      - sshpass
+      - curl
+      - ca-certificates
+      - qemu-kvm
+      - libvirt-daemon-system
+      - python3-dev
+
+- name: Add user to libvirt group
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: libvirt
+    append: true
+
+- name: Install a list of packages from snap
+  community.general.snap:
+    name:
+      - yq
+
+# - name: Install a list of packages from snap with option --classic
+#   community.general.snap:
+#     name:
+#       - code
+#     classic: true
+
+# - name: Install Google Chrome .deb package from URL
+#   ansible.builtin.apt:
+#     deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
