@@ -12,5 +12,25 @@ prefs_tmp_files:
 
 user_config_dir:
   backgrounds: "/home/{{ ansible_user }}/.local/share/backgrounds"
+  bin: "/home/{{ ansible_user }}/.local/bin"
 
 desktop_background_image: autosetup-desktop-background.jpg
+
+application_from_url:
+  - name: yq
+    version: 4.44.6
+    url: https://github.com/mikefarah/yq/releases/download/v#application_version#/yq_linux_amd64
+    binary_files:
+      - name: yq
+        file: yq_linux_amd64
+
+  - name: go
+    version: 1.23.4
+    url: https://go.dev/dl/go#application_version#.linux-amd64.tar.gz
+    binary_files:
+      - name: go
+        file: bin/go
+
+      - name: gofmt
+        file: bin/gofmt
+    is_archive: true

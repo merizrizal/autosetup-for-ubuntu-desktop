@@ -39,44 +39,17 @@
     upgrade: full
     update_cache: true
 
-- name: Install a list of packages
-  ansible.builtin.apt:
-    name:
-      - jq
-      - git
-      - gnome-tweaks
-      - gnome-shell-extensions
-      - sshfs
-      - bindfs
-      - psensor
-      - openconnect
-      - stoken
-      - build-essential
-      - xmlstarlet
-      - sshpass
-      - curl
-      - ca-certificates
-      - qemu-kvm
-      - libvirt-daemon-system
-      - python3-dev
+- name: Install packages from repository
+  ansible.builtin.include_tasks:
+    file: install_packages.yml
 
-- name: Add user to libvirt group
-  ansible.builtin.user:
-    name: "{{ ansible_user }}"
-    groups: libvirt
-    append: true
+- name: Install application from URL
+  ansible.builtin.include_tasks:
+    file: install_application.yml
+  loop: "{{ application_from_url }}"
+  loop_control:
+    label: "{{ item.name }}"
 
-- name: Install a list of packages from snap
-  community.general.snap:
-    name:
-      - yq
-
-# - name: Install a list of packages from snap with option --classic
-#   community.general.snap:
-#     name:
-#       - code
-#     classic: true
-
-# - name: Install Google Chrome .deb package from URL
-#   ansible.builtin.apt:
-#     deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+- name: Customize user bashrc
+  ansible.builtin.include_tasks:
+    file: customize_bashrc.yml

@@ -1,0 +1,42 @@
+---
+- name: Install application
+  ansible.builtin.debug:
+    msg: "{{ item.name }}"
+
+- name: Ensure the applications /opt directory exists
+  ansible.builtin.file:
+    path: /opt/{{ item.name }}
+    mode: "755"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    state: directory
+
+- name: Download applications from URL and save into /opt
+  ansible.builtin.get_url:
+    url: "{{ item.url | replace('#application_version#', item.version) }}"
+    dest: /opt/{{ item.name }}/
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "755"
+  when: item.is_archive is not defined
+
+- name: Download applications from URL and extract into /opt
+  ansible.builtin.unarchive:
+    src: "{{ item.url | replace('#application_version#', item.version) }}"
+    remote_src: true
+    dest: /opt/{{ item.name }}/
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    extra_opts: "{{ [] if '.zip' in item.url else ['--strip-components=1', '--show-stored-names'] }}"
+  when: item.is_archive is defined and item.is_archive
+
+- name: Copy downloaded applications into user local bin
+  ansible.builtin.file:
+    src: /opt/{{ item.name }}/{{ binary_file.file }}
+    dest: "{{ user_config_dir.bin }}/{{ binary_file.name }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    state: link
+  loop: "{{ item.binary_files }}"
+  loop_control:
+    loop_var: binary_file

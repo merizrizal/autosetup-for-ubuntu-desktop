@@ -1,0 +1,14 @@
+---
+- name: Set script into .bashrc
+  ansible.builtin.blockinfile:
+    path: /home/{{ ansible_user }}/.bashrc
+    append_newline: true
+    prepend_newline: true
+    block: |
+      if [[ -n $HELLO_INIT_COMMAND ]]; then
+        echo "Running: $HELLO_INIT_COMMAND"
+        eval "$HELLO_INIT_COMMAND"
+      fi
+
+      alias hello_command="echo Hello World!"
+    insertafter: EOF

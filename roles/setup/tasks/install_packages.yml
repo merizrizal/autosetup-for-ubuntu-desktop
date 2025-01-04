@@ -1,0 +1,47 @@
+---
+- name: Install a list of packages
+  ansible.builtin.apt:
+    name:
+      - jq
+      - git
+      - gnome-tweaks
+      - gnome-shell-extensions
+      - sshfs
+      - bindfs
+      - psensor
+      - openconnect
+      - stoken
+      - build-essential
+      - xmlstarlet
+      - sshpass
+      - curl
+      - ca-certificates
+      - qemu-kvm
+      - libvirt-daemon-system
+      - python3-dev
+      - openjdk-21-jdk
+      - libpq-dev
+      - libvirt-dev
+      - libssh-dev
+
+- name: Add user to libvirt group
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: libvirt
+    append: true
+
+- name: Install a list of packages from snap
+  community.general.snap:
+    name:
+      - postman
+
+- name: Install a list of packages from snap with option --classic
+  community.general.snap:
+    name:
+      - code
+      - intellij-idea-community
+    classic: true
+
+- name: Install Google Chrome .deb package from URL
+  ansible.builtin.apt:
+    deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
