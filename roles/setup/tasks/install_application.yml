@@ -30,6 +30,25 @@
     extra_opts: "{{ [] if '.zip' in item.url else ['--strip-components=1', '--show-stored-names'] }}"
   when: item.is_archive is defined and item.is_archive
 
+- name: Install packages dependencies
+  ansible.builtin.apt:
+    name: "{{ item.packages_dependencies }}"
+  when: item.is_compiled is defined and item.is_compiled and item.packages_dependencies is defined
+
+- name: Build binaries from application source
+  ansible.builtin.shell:
+    chdir: /opt/{{ item.name }}
+    cmd: |
+      set -o pipefail #
+      {{ compile_command }}
+    executable: /bin/bash
+  become: false
+  changed_when: false
+  loop: "{{ item.compile_commands }}"
+  loop_control:
+    loop_var: compile_command
+  when: item.is_compiled is defined and item.is_compiled
+
 - name: Copy downloaded applications into user local bin
   ansible.builtin.file:
     src: /opt/{{ item.name }}/{{ binary_file.file }}

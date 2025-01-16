@@ -34,3 +34,28 @@ application_from_url:
       - name: gofmt
         file: bin/gofmt
     is_archive: true
+
+  - name: php
+    version: 8.4.2
+    url: https://www.php.net/distributions/php-#application_version#.tar.gz
+    binary_files:
+      - name: php
+        file: bin/php
+    packages_dependencies:
+      - libxml2-dev
+      - libssl-dev
+      - libsqlite3-dev
+      - libcurl4-openssl-dev
+      - libpng-dev
+      - libonig-dev
+      - libxslt1-dev
+      - libzip-dev
+    is_archive: true
+    is_compiled: true
+    compile_commands:
+      - make distclean
+      - >
+        ./configure --prefix=/opt/php --enable-intl --enable-exif --enable-sockets --enable-mbstring --enable-gd
+        --with-curl --with-openssl --with-xsl --with-zip --with-zlib
+      - make -j8
+      - make install
