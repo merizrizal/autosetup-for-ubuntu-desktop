@@ -3,7 +3,12 @@
   ansible.builtin.debug:
     msg: "{{ item.name }}"
 
-- name: Ensure the applications /opt directory exists
+- name: Ensure the applications /opt directory empty
+  ansible.builtin.file:
+    path: /opt/{{ item.name }}
+    state: absent
+
+- name: Ensure the applications /opt directory created
   ansible.builtin.file:
     path: /opt/{{ item.name }}
     mode: "755"

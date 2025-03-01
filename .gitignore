@@ -8,5 +8,6 @@ __pycache__/
 *.pyc
 
 .vscode/*
+.ansible
 
 venv/

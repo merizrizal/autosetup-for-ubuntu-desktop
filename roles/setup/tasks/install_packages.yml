@@ -19,7 +19,6 @@
       - qemu-kvm
       - libvirt-daemon-system
       - python3-dev
-      - openjdk-21-jdk
       - libpq-dev
       - libvirt-dev
       - libssh-dev

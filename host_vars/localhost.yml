@@ -53,9 +53,15 @@ application_from_url:
     is_archive: true
     is_compiled: true
     compile_commands:
-      - make distclean
       - >
         ./configure --prefix=/opt/php --enable-intl --enable-exif --enable-sockets --enable-mbstring --enable-gd
         --with-curl --with-openssl --with-xsl --with-zip --with-zlib
       - make -j8
       - make install
+
+  - name: composer
+    version: 2.8.4
+    url: https://getcomposer.org/download/#application_version#/composer.phar
+    binary_files:
+      - name: composer
+        file: composer.phar
