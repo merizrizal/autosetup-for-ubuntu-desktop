@@ -5,9 +5,9 @@
     append_newline: true
     prepend_newline: true
     block: |
-      if [[ -n $HELLO_INIT_COMMAND ]]; then
-        echo "Running: $HELLO_INIT_COMMAND"
-        eval "$HELLO_INIT_COMMAND"
+      if [[ -n $VSCODE_SH_INIT_COMMAND ]]; then
+        echo "Running: $VSCODE_SH_INIT_COMMAND"
+        eval "$VSCODE_SH_INIT_COMMAND"
       fi
 
       alias hello_command="echo Hello World!"

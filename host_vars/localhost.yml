@@ -35,6 +35,33 @@ application_from_url:
         file: bin/gofmt
     is_archive: true
 
+  - name: graalvm-jdk
+    version: 23.0.2
+    url: >
+      https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-#application_version#/graalvm-community-jdk-#application_version#_linux-x64_bin.tar.gz
+    binary_files:
+      - name: java
+        file: bin/java
+
+      - name: javac
+        file: bin/javac
+
+      - name: javap
+        file: bin/javap
+
+      - name: jar
+        file: bin/jar
+
+      - name: keytool
+        file: bin/keytool
+
+      - name: native-image
+        file: bin/native-image
+
+      - name: native-image-configure
+        file: bin/native-image-configure
+    is_archive: true
+
   - name: php
     version: 8.4.2
     url: https://www.php.net/distributions/php-#application_version#.tar.gz
